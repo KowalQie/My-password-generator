@@ -1,0 +1,65 @@
+#Cel:
+#Utworz haslo, ktore bedzie skladac sie z liter, cyfr i znakow interpunkcyjnych.
+#Ilosc poszczególnych znaków okreslisz sam, a program automatycznie wygeneruje haslo
+
+import random
+
+#DATA 
+ascii_letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#Tu mozna jeszcze dodac jedna zmienna z samymi duzymi lub małymi literami
+cyfry = '0123456789' 
+interpunkcja = '!"#$%&()*+,-./:;<=>?@[\]^_`{|}~'
+
+#źródło: https://stackoverflow.com/questions/16060899/alphabet-range-in-python
+
+#Metoda na zamianę ciągu znaków na listę 
+list_letters = list(ascii_letters) 
+list_symbols = list(interpunkcja) 
+list_numbers = list(cyfry)
+
+#źródło: https://www.geeksforgeeks.org/python-program-convert-string-list/
+
+#START 
+print("Witamy w generatorze haseł PyPassword!") 
+nr_letters=int(input("Ile liter chcesz w swoim haśle?\n")) 
+nr_symbols=int(input("Ile symboli chcesz mieć w swoim haśle?\n"))
+nr_numbers=int(input("Ile cyfr chcesz mieć w swoim haśle?\n"))
+
+
+#FUNKCJE
+
+#Metoda na określenie zakresu listy
+
+random_list_letters=list_letters[0:nr_letters]
+
+#Lista numerów losowa.shuffle(list_numbers)dla numeru w list_numbers: 
+random_list_numbers=list_numbers[0:nr_numbers]
+
+#Lista symboli losowa.shuffle(list_symbols)dla symbolu w list_symbols:
+random_list_symbols=list_symbols[0:nr_symbols]
+
+#Połącz listę i przetasuj 
+main_list=random_list_letters
+main_list.extend(random_list_numbers) 
+main_list.extend(random_list_symbols) 
+random.shuffle(main_list) 
+
+
+#Metoda - zamian listy na ciąg znaków 
+main_list = [str(element) for element in main_list]
+#Metoda - na polaczenie wszystkich elementów z listy na jeden ciąg znaków 
+password = ''.join(main_list)
+print(password)
+
+#https://www.simplilearn.com/tutorials/python-tutorial/list-to-string-in-python
+
+#Komentarze do wyświetlenia 
+if nr_letters >= 4 and nr_symbols >= 2 and nr_numbers >= 2: 
+  print("Twoje hasło jest silne.") 
+elif nr_letters >= 4 and nr_numbers >= 1 and nr_symbols >= 1: 
+  print("Twoje hasło jest przeciętne.") 
+else: 
+  print("Twoje hasło jest słabe. Dodaj kilka znaków, zwłaszcza cyfr i symboli.")
+
+#Opcje tworzenia haseł w module secrets:
+# https://docs.python.org/3/library/secrets.html#module-secrets
